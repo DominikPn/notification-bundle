@@ -26,6 +26,30 @@ abstract class Notification implements \JsonSerializable
     protected $id;
 
     /**
+     * @var string
+     * @ORM\Colum(type="string", lenght=256, nullable=true)
+     */
+    protected $icon;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=128)
+     */
+    protected $type;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="seen", type="boolean")
+     */
+    protected $seen;
+
+    /**
+     * @var string
+     * @ORM\Column(type=boolean, nullable=true)
+     */
+    protected $is_deleted;
+
+    /**
      * @var \DateTime
      * @ORM\Column(type="datetime")
      */
@@ -63,6 +87,69 @@ abstract class Notification implements \JsonSerializable
     {
         $this->date = new \DateTime();
         $this->notifiableNotifications = new ArrayCollection();
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getSeen():?bool
+    {
+        return $this->seen;
+    }
+
+    /**
+     * @param bool $v
+     */
+    protected function setSeen(bool $v)
+    {
+        $this->seen = $v;
+    }
+
+    /**
+     * @param bool $v
+     */
+    public function setIsDeleted(bool $v)
+    {
+        $this->is_deleted = $v;
+    }
+    /**
+     * @return bool|null
+     */
+    public function getIsDeleted():?bool
+    {
+        return $this->is_deleted;
+    }
+
+    /**
+     * @param string $path
+     */
+    public function setIcon(string $path)
+    {
+        $this->icon = $path;
+    }
+
+    /**
+     * @return string|null Icon path
+     */
+    public function getIcon():?string
+    {
+        return $this->icon;
+    }
+
+    /**
+     * @param string $type Notification type
+     */
+    public function setType(string $type)
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * @return string Type of the notification
+     */
+    public function getType():string
+    {
+        return $this->type;
     }
 
     /**
@@ -205,7 +292,11 @@ abstract class Notification implements \JsonSerializable
             'date'    => $this->getDate()->format(\DateTime::ISO8601),
             'subject' => $this->getSubject(),
             'message' => $this->getMessage(),
-            'link'    => $this->getLink()
+            'link'    => $this->getLink(),
+            'seen'    => $this->getSeen(),
+            'is_deleted' => $this->getIsDeleted(),
+            'icon' => $this->getIcon(),
+            'type' => $this->getType()
         ];
     }
 }
