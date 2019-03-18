@@ -29,6 +29,12 @@ abstract class Notification implements \JsonSerializable
      * @var string
      * @ORM\Column(type="string", length=128)
      */
+    protected $icon;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=128)
+     */
     protected $type;
 
     /**
@@ -38,8 +44,8 @@ abstract class Notification implements \JsonSerializable
     protected $seen;
 
     /**
-     * @var string
-     * @ORM\Column(type=boolean, nullable=true)
+     * @var boolean
+     * @ORM\Column(name="is_deleted", type="boolean")
      */
     protected $is_deleted;
 
@@ -119,7 +125,7 @@ abstract class Notification implements \JsonSerializable
      */
     public function setIcon(string $path)
     {
-        //$this->icon = $path;
+        $this->icon = $path;
     }
 
     /**
@@ -127,7 +133,7 @@ abstract class Notification implements \JsonSerializable
      */
     public function getIcon():?string
     {
-        return '';
+        return $this->icon;
     }
 
     /**
