@@ -38,18 +38,6 @@ abstract class Notification implements \JsonSerializable
     protected $type;
 
     /**
-     * @var boolean
-     * @ORM\Column(name="seen", type="boolean")
-     */
-    protected $seen;
-
-    /**
-     * @var boolean
-     * @ORM\Column(name="is_deleted", type="boolean")
-     */
-    protected $is_deleted;
-
-    /**
      * @var \DateTime
      * @ORM\Column(type="datetime")
      */
@@ -87,37 +75,6 @@ abstract class Notification implements \JsonSerializable
     {
         $this->date = new \DateTime();
         $this->notifiableNotifications = new ArrayCollection();
-    }
-
-    /**
-     * @return bool|null
-     */
-    public function getSeen():?bool
-    {
-        return $this->seen;
-    }
-
-    /**
-     * @param bool $v
-     */
-    public function setSeen(bool $v)
-    {
-        $this->seen = $v;
-    }
-
-    /**
-     * @param bool $v
-     */
-    public function setIsDeleted(bool $v)
-    {
-        $this->is_deleted = $v;
-    }
-    /**
-     * @return bool|null
-     */
-    public function getIsDeleted():?bool
-    {
-        return $this->is_deleted;
     }
 
     /**

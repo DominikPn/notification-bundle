@@ -29,6 +29,12 @@ class NotifiableNotification implements \JsonSerializable
     protected $seen;
 
     /**
+     * @var boolean
+     * @ORM\Column(name="is_deleted", type="boolean", nullable=true)
+     */
+    protected $is_deleted;
+
+    /**
      * @var Notification
      * @ORM\ManyToOne(targetEntity="Mgilet\NotificationBundle\Entity\Notification", inversedBy="notifiableNotifications", cascade={"persist"})
      */
@@ -117,6 +123,28 @@ class NotifiableNotification implements \JsonSerializable
     }
 
     /**
+     * @param bool $v
+     * @return NotifiableNotification
+     */
+    public function setIsDeleted(bool $v)
+    {
+        $this->is_deleted = $v;
+        return $this;
+    }
+    /**
+     * @return bool|null
+     */
+    public function getIsDeleted():?bool
+    {
+        return $this->is_deleted;
+    }
+
+    public function isDeleted():?bool
+    {
+        return $this->getIsDeleted();
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function jsonSerialize()
@@ -124,6 +152,7 @@ class NotifiableNotification implements \JsonSerializable
         return [
             'id'           => $this->getId(),
             'seen'         => $this->isSeen(),
+            'deleted' => $this->isDeleted(),
             'notification' => $this->getNotification(),
             // for the notifiable, we serialize only the id:
             // - we don't need not want the FQCN exposed
