@@ -250,8 +250,6 @@ abstract class Notification implements \JsonSerializable
             'subject' => $this->getSubject(),
             'message' => $this->getMessage(),
             'link'    => $this->getLink(),
-            'seen'    => $this->getSeen(),
-            'is_deleted' => $this->getIsDeleted(),
             'icon' => $this->getIcon(),
             'type' => $this->getType()
         ];
