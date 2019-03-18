@@ -433,7 +433,7 @@ class NotificationManager
     }
 
 
-    public function deleteAllNotifications(NotifiableInterface $notifiable)
+    public function deleteAllNotifications(NotifiableInterface $notifiable, bool $flush = true)
     {
         $nns = $this->notifiableNotificationRepository->findAllForNotifiable(
             $this->generateIdentifier($notifiable),
@@ -445,6 +445,7 @@ class NotificationManager
             $event = new NotificationEvent($nn->getNotification(), $notifiable);
             $this->dispatcher->dispatch(MgiletNotificationEvents::DELETED, $event);
         }
+        $this->flush(true);
     }
 
     /**
