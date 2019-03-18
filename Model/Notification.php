@@ -100,7 +100,7 @@ abstract class Notification implements \JsonSerializable
     /**
      * @param bool $v
      */
-    protected function setSeen(bool $v)
+    public function setSeen(bool $v)
     {
         $this->seen = $v;
     }
