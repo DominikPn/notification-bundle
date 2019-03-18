@@ -32,7 +32,7 @@ class NotifiableNotification implements \JsonSerializable
      * @var boolean
      * @ORM\Column(name="is_deleted", type="boolean", nullable=true)
      */
-    protected $is_deleted;
+    protected $is_deleted = false;
 
     /**
      * @var Notification
