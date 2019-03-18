@@ -27,7 +27,7 @@ abstract class Notification implements \JsonSerializable
 
     /**
      * @var string
-     * @ORM\Colum(type="string", lenght=256, nullable=true)
+     * @ORM\Colum(name="icon",type="string", lenght=110, nullable=true)
      */
     protected $icon;
 
