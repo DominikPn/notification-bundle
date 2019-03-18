@@ -89,10 +89,4 @@ interface NotificationInterface
 
     public function setType(string $type);
     public function getType():?string;
-
-    public function setIsDeleted(bool $v);
-    public function getIsDeleted():?bool;
-
-    public function setSeen(bool $v);
-    public function getSeen():?bool;
 }
