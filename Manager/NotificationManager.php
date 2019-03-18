@@ -432,6 +432,18 @@ class NotificationManager
         $this->dispatcher->dispatch(MgiletNotificationEvents::DELETED, $event);
     }
 
+    public function deleteNotificationWithNotifiableNotification(NotificationInterface $notification, $flush = false)
+    {
+        $this->om->remove($notification);
+        foreach ($notification->getNotifiableNotifications() as $nn)
+        {
+            $this->om->remove($nn);
+        }
+        $this->flush($flush);
+
+        $event = new NotificationEvent($notification);
+        $this->dispatcher->dispatch(MgiletNotificationEvents::DELETED, $event);
+    }
 
     public function deleteAllNotifications(NotifiableInterface $notifiable,$flush = true)
     {
