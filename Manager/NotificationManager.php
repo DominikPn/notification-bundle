@@ -335,6 +335,8 @@ class NotificationManager
             ->setSubject($subject)
             ->setMessage($message)
             ->setLink($link);
+        $notification->setIsDeleted(0);
+        $notification->setSeen(0);
 
         $event = new NotificationEvent($notification);
         $this->dispatcher->dispatch(MgiletNotificationEvents::CREATED, $event);
