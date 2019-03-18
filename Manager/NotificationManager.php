@@ -266,6 +266,15 @@ class NotificationManager
         );
     }
 
+    public function getNotificationsQb(NotifiableInterface $notifiable, $order = 'DESC')
+    {
+        return $this->notifiableNotificationRepository->findAllByNotifiableQb(
+            $this->generateIdentifier($notifiable),
+            ClassUtils::getRealClass(get_class($notifiable)),
+            $order
+        );
+    }
+
     /**
      * @param NotifiableInterface $notifiable
      * @param string              $order
