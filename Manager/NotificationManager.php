@@ -441,10 +441,10 @@ class NotificationManager
         );
 
         foreach ($nns as $nn) {
-            $this->om->remove();
+            $this->om->remove($nn);
             $notification = $nn->getNotification();
             $this->om->remove($notification);
-             $event = new NotificationEvent($notification, $notifiable);
+            $event = new NotificationEvent($nn->getNotification(), $notifiable);
             $this->dispatcher->dispatch(MgiletNotificationEvents::DELETED, $event);
         }
         $this->flush($flush);
