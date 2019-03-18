@@ -13,5 +13,7 @@ use Mgilet\NotificationBundle\Model\Notification as NotificationModel;
  */
 class Notification extends NotificationModel implements NotificationInterface
 {
-
+    const TYPE_SMS = "sms";
+    const TYPE_MAIL = "mail";
+    const TYPE_PUSH_MAIL = "push_mail";
 }
