@@ -8,6 +8,7 @@ use Mgilet\NotificationBundle\Entity\NotifiableEntity;
 use Mgilet\NotificationBundle\Entity\NotifiableNotification;
 use Mgilet\NotificationBundle\Entity\Notification;
 use Mgilet\NotificationBundle\Entity\NotificationInterface;
+use Mgilet\NotificationBundle\Entity\Repository\NotifiableNotificationRepository;
 use Mgilet\NotificationBundle\Event\NotificationEvent;
 use Mgilet\NotificationBundle\MgiletNotificationEvents;
 use Mgilet\NotificationBundle\NotifiableDiscovery;
@@ -27,6 +28,9 @@ class NotificationManager
     protected $dispatcher;
     protected $notifiableRepository;
     protected $notificationRepository;
+    /**
+     * @var NotifiableNotificationRepository $notifiableNotificationRepository
+     */
     protected $notifiableNotificationRepository;
 
     /**
@@ -426,6 +430,22 @@ class NotificationManager
 
         $event = new NotificationEvent($notification);
         $this->dispatcher->dispatch(MgiletNotificationEvents::DELETED, $event);
+    }
+
+
+    public function deleteAllNotifications(NotifiableInterface $notifiable, $flush = false)
+    {
+        $nns = $this->notifiableNotificationRepository->findAllForNotifiable(
+            $this->generateIdentifier($notifiable),
+            ClassUtils::getRealClass(get_class($notifiable))
+        );
+
+        foreach ($nns as $nn) {
+            $this->om->remove($nn);
+            $this->flush($flush);
+            $event = new NotificationEvent($nn->getNotification(), $notifiable);
+            $this->dispatcher->dispatch(MgiletNotificationEvents::DELETED, $event);
+        }
     }
 
     /**
