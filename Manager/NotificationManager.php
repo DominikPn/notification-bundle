@@ -433,7 +433,7 @@ class NotificationManager
     }
 
 
-    public function deleteAllNotifications(NotifiableInterface $notifiable, bool $flush = true)
+    public function deleteAllNotifications(NotifiableInterface $notifiable,$flush = true)
     {
         $nns = $this->notifiableNotificationRepository->findAllForNotifiable(
             $this->generateIdentifier($notifiable),
