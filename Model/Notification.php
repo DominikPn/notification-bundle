@@ -61,7 +61,7 @@ abstract class Notification implements \JsonSerializable
     protected $link;
 
     /**
-     * @var NotifiableNotification[]|ArrayCollection
+     * @var NotifiableNotification[]
      * @ORM\OneToMany(targetEntity="Mgilet\NotificationBundle\Entity\NotifiableNotification", mappedBy="notification", cascade={"persist"})
      */
     protected $notifiableNotifications;
